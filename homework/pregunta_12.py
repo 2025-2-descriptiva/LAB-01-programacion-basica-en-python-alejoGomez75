@@ -8,10 +8,30 @@ utilizar pandas, numpy o scipy.
 
 def pregunta_12():
     """
-    Genere un diccionario que contengan como clave la columna 1 y como valor
-    la suma de los valores de la columna 5 sobre todo el archivo.
-
-    Rta/
-    {'A': 177, 'B': 187, 'C': 114, 'D': 136, 'E': 324}
-
+    Genere un diccionario que contenga como clave la columna 1 (letra)
+    y como valor la suma de los valores de la columna 5 en todo el archivo.
     """
+    suma_por_letra = {}
+
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            columnas = line.strip().split("\t")
+            letra = columnas[0]            
+            col5 = columnas[4].split(",")  
+
+            total_valores = 0
+            for par in col5:
+                clave, valor = par.split(":")
+                total_valores += int(valor)
+
+            if letra in suma_por_letra:
+                suma_por_letra[letra] += total_valores
+            else:
+                suma_por_letra[letra] = total_valores
+
+    return dict(sorted(suma_por_letra.items()))
+
+
+if __name__ == "__main__":
+    print(pregunta_12())
+

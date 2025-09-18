@@ -8,11 +8,26 @@ utilizar pandas, numpy o scipy.
 
 def pregunta_11():
     """
-    Retorne un diccionario que contengan la suma de la columna 2 para cada
-    letra de la columna 4, ordenadas alfabeticamente.
-
-    Rta/
-    {'a': 122, 'b': 49, 'c': 91, 'd': 73, 'e': 86, 'f': 134, 'g': 35}
-
-
+    Retorne un diccionario que contenga la suma de la columna 2
+    para cada letra de la columna 4, ordenadas alfabéticamente.
     """
+    suma_por_letra = {}
+
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            columnas = line.strip().split("\t")
+            numero = int(columnas[1])      
+            letras = columnas[3].split(",")  
+
+            for letra in letras:
+                if letra in suma_por_letra:
+                    suma_por_letra[letra] += numero
+                else:
+                    suma_por_letra[letra] = numero
+
+    return dict(sorted(suma_por_letra.items()))
+
+
+if __name__ == "__main__":
+    print(pregunta_11())
+

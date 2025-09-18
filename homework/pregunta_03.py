@@ -9,9 +9,28 @@ utilizar pandas, numpy o scipy.
 def pregunta_03():
     """
     Retorne la suma de la columna 2 por cada letra de la primera columna como
-    una lista de tuplas (letra, suma) ordendas alfabeticamente.
+    una lista de tuplas (letra, suma) ordenadas alfabéticamente.
 
     Rta/
     [('A', 53), ('B', 36), ('C', 27), ('D', 31), ('E', 67)]
-
     """
+    suma_por_letra = {}
+
+    with open("files/input/data.csv", "r", encoding="utf-8") as file:
+        for line in file:
+            columnas = line.strip().split("\t")  
+            letra = columnas[0]                 
+            numero = int(columnas[1])           
+            if letra in suma_por_letra:
+                suma_por_letra[letra] += numero
+            else:
+                suma_por_letra[letra] = numero
+
+    resultado = sorted(suma_por_letra.items())
+
+    return resultado
+
+
+if __name__ == "__main__":
+    print(pregunta_03()) 
+
